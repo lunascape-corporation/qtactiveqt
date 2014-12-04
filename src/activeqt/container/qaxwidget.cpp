@@ -1443,19 +1443,19 @@ extern Q_GUI_EXPORT bool qt_win_ignoreNextMouseReleaseEvent;
 
 HRESULT WINAPI QAxClientSite::EnableModeless(BOOL fEnable)
 {
-    EnableWindow(hwndForWidget(host), fEnable);
+    //EnableWindow(hwndForWidget(host), fEnable);
 
-    QWindow *hostWindow = host->hostWindow();
-    if (!hostWindow)
-        return S_FALSE;
+    //QWindow *hostWindow = host->hostWindow();
+    //if (!hostWindow)
+    //    return S_FALSE;
 
-    if (!fEnable) {
-        if (!QApplicationPrivate::isBlockedByModal(host))
-            QGuiApplicationPrivate::showModalWindow(hostWindow);
-    } else {
-        if (QApplicationPrivate::isBlockedByModal(host))
-            QGuiApplicationPrivate::hideModalWindow(hostWindow);
-    }
+    //if (!fEnable) {
+    //    if (!QApplicationPrivate::isBlockedByModal(host))
+    //        QGuiApplicationPrivate::showModalWindow(hostWindow);
+    //} else {
+    //    if (QApplicationPrivate::isBlockedByModal(host))
+    //        QGuiApplicationPrivate::hideModalWindow(hostWindow);
+    //}
     // FIXME 4.10.2011: No longer exists  in Lighthouse.
     // qt_win_ignoreNextMouseReleaseEvent = false;
     return S_OK;
