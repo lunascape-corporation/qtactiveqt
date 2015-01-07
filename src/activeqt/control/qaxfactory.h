@@ -94,7 +94,7 @@ public:
     static bool isServer();
     static QString serverDirPath();
     static QString serverFilePath();
-    static bool startServer(ServerType type = MultipleInstances);
+    static bool startServer(ServerType type = SingleInstance);
     static bool stopServer();
 
     static bool registerActiveObject(QObject *object);
