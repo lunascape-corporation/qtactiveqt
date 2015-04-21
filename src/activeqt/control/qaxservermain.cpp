@@ -210,7 +210,11 @@ EXTERN_C int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR,
     QByteArray cmdParam = QString::fromWCharArray(GetCommandLine()).toLocal8Bit();
     QList<QByteArray> cmds = cmdParam.split(' ');
     QByteArray unprocessed;
-
+    
+    	// BEGIN - Added by Lunascape 2015/04/15
+	QAxFactory::ServerType type = QAxFactory::MultipleInstances;
+	// END - Added by Lunascape 2015/04/15
+	
     int nRet = 0;
     bool run = true;
     bool runServer = false;
@@ -246,7 +250,13 @@ EXTERN_C int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR,
             }
             run = false;
             break;
-        } else {
+		}
+		// BEGIN - Added by Lunascape 2015/04/15
+		else if (cmd == "-singleuse" || cmd == "/singleuse") {
+			type = QAxFactory::SingleInstance;
+		}
+		// END - Added by Lunascape 2015/04/15
+		else {
             unprocessed += cmds.at(i) + ' ';
         }
     }
@@ -258,7 +268,9 @@ EXTERN_C int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR,
             qWinMain(hInstance, hPrevInstance, unprocessed.data(), nShowCmd, argc, argv);
             qAxInit();
             if (runServer)
-                QAxFactory::startServer();
+			// BEGIN - Changed by Lunascape 2015/04/15
+                QAxFactory::startServer(type);
+			// END - Changed by Lunascape 2015/04/15
             nRet = ::main(argc, argv.data());
             QAxFactory::stopServer();
             qAxCleanup();
